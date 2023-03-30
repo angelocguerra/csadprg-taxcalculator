@@ -1,5 +1,5 @@
 # csadprg-taxcalculator
-**CSADPRG Major Course Output: Software Application - PH Tax Calculator**
+**CSADPRG Major Course Output 1: PH Tax Calculator**
 
 A Tax Calculator for the revised Philippine Tax Table for 2022 with a graphical user interface using the Model-View-Controller architecture implemented in Kotlin.
 
