@@ -139,4 +139,15 @@ class CalculatorModel {
     fun NetIncomeCalc(salary:Double): Double {
         return salary - ContributionsCalc(salary) - IncomeTaxCalc(salary)
     }
+
+    fun main() {
+        var salary = 20000.0
+        println(SSSCalc(salary))
+        println(PagIbigCalc(salary))
+        println(PhilHealthCalc(salary))
+        println(ContributionsCalc(salary))
+        println(IncomeTaxCalc(salary))
+        println(NetPayCalc(salary))
+        println(NetIncomeCalc(salary))
+    }
 }
