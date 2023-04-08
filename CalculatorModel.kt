@@ -49,17 +49,7 @@ class CalculatorModel {
             salary >= 23250 && salary <= 23749.99 -> 1057.5
             salary >= 23750 && salary <= 24249.99 -> 1080.0
             salary >= 24250 && salary <= 24279.99 -> 1102.5
-            salary >= 24750 && salary <= 25249.99 -> 1125.0
-            salary >= 25250 && salary <= 25749.99 -> 1147.5
-            salary >= 25750 && salary <= 26249.99 -> 1170.0
-            salary >= 26250 && salary <= 26749.99 -> 1192.5
-            salary >= 26750 && salary <= 27249.99 -> 1215.0
-            salary >= 27250 && salary <= 27749.99 -> 1237.5
-            salary >= 27750 && salary <= 28249.99 -> 1260.0
-            salary >= 28250 && salary <= 28749.99 -> 1282.5
-            salary >= 28750 && salary <= 29249.99 -> 1305.0
-            salary >= 29250 && salary <= 29749.99 -> 1327.5
-            else -> 1350.0
+            else -> 1125.0
         } 
         
         return SSS
@@ -94,10 +84,10 @@ class CalculatorModel {
     fun PhilHealthCalc(salary:Double): Double {
         if(salary > 0 && salary <= 10000) {
             return (450.0 / 2)
-        } else if (salary > 10000 && salary < 90000){
-            return ((salary * 0.045) / 2)
+        } else if (salary > 10000 && salary < 80000){
+            return ((salary * 0.04) / 2)
         } else {
-            return 4050.0
+            return 3200.0 / 2
         }
     }
 
@@ -115,36 +105,11 @@ class CalculatorModel {
         var taxableIncome:Double = salary - ContributionsCalc(salary)
         var incomeTax:Double = when {
             taxableIncome <= 20833 -> 0.0
-            taxableIncome >= 20833 && taxableIncome <= 33332 -> {
-                if (taxableIncome > 20833) {
-                    (taxableIncome - 20833) * 0.15
-                } else {
-                    0.0
-                }
-            }
-            taxableIncome >= 33333 && taxableIncome <= 66666 -> {
-                if (taxableIncome > 33333) {
-                    (taxableIncome - 33333) * 0.20 + 1875
-                } else {
-                    2500.0
-                }
-            }
-            taxableIncome >= 66667 && taxableIncome <= 166666 -> {
-                if (taxableIncome > 66667) {
-                    (taxableIncome - 66667) * 0.25 + 8541.8
-                } else {
-                    10833.33
-                }
-            }
-            taxableIncome >= 166667 && taxableIncome <= 666666 -> {
-                if (taxableIncome > 166667) {
-                    (taxableIncome - 166667) * 0.30 + 33541.8
-                } else {
-                    200833.33
-                }
-            }
-            taxableIncome == 666667.0-> 200833.33
-            else -> ((taxableIncome - 666667) * 0.35) + 183541.8
+            taxableIncome >= 20833 && taxableIncome < 33333 -> (taxableIncome - 20833) * 0.20
+            taxableIncome >= 33333 && taxableIncome < 66667 -> (taxableIncome - 33333) * 0.25 + 2500
+            taxableIncome >= 66667 && taxableIncome < 166667 -> (taxableIncome - 66667) * 0.30 + 10833.33
+            taxableIncome >= 166667 && taxableIncome < 666667 -> (taxableIncome - 166667) * 0.32 + 200833.33
+            else -> ((taxableIncome - 666667) * 0.35) + 200833.33
         }
 
         return incomeTax
@@ -155,13 +120,6 @@ class CalculatorModel {
     */
     fun TotalDeductionsCalc(salary:Double): Double {
         return ContributionsCalc(salary) + IncomeTaxCalc(salary)
-    }
-
-    /* Net Pay Calculator
-        - Returns the net pay before contributions and after income tax 
-    */
-    fun NetPayCalc(salary:Double): Double {
-        return salary - IncomeTaxCalc(salary)
     }
 
     /* Net Income Calculator
