@@ -1,12 +1,9 @@
 class CalculatorModel {
-    // Code could still be optimized
-    // Some parts still missing
-
     /*  SSS Calculator
         - returns the respective SSS contribution based on the salary
-    */ 
-    fun SSSCalc(salary:Double): Double {
-        var SSS: Double = when {
+    */
+    fun computeSSS(salary:Double): Double {
+        val SSS: Double = when {
             salary < 4250 -> 180.0
             salary >= 4250 && salary <= 4749.99 -> 202.5
             salary >= 4750 && salary <= 5249.99 -> 225.0
@@ -50,25 +47,25 @@ class CalculatorModel {
             salary >= 23750 && salary <= 24249.99 -> 1080.0
             salary >= 24250 && salary <= 24279.99 -> 1102.5
             else -> 1125.0
-        } 
-        
+        }
+
         return SSS
     }
 
-    /*  Pag-Ibig Calculator 
+    /*  Pag-Ibig Calculator
         - If salary is less than 1,500, Pag-Ibig is 1% of salary
         - If salary is greater than 1,500, Pag-Ibig is 2% of salary
         - If Pag-Ibig is greater than 100, Pag-Ibig is capped at 100
     */
-    fun PagIbigCalc(salary:Double): Double {
+    fun computePagIbig(salary:Double): Double {
         var pagibig:Double
-        
+
         if(salary < 1500) {
             pagibig = salary * 0.01
         } else {
             pagibig = salary * 0.02
         }
-        
+
         if(pagibig > 100) {
             pagibig = 100.0
         }
@@ -81,7 +78,7 @@ class CalculatorModel {
         - If salary is in between 10,000 and 90,000, PhilHealth is 2.25% of salary
         - If salary is greater than 90,000, PhilHealth is capped at 4050
     */
-    fun PhilHealthCalc(salary:Double): Double {
+    fun computePhilHealth(salary:Double): Double {
         if(salary > 0 && salary <= 10000) {
             return (450.0 / 2)
         } else if (salary > 10000 && salary < 80000){
@@ -94,16 +91,16 @@ class CalculatorModel {
     /*  Contributions Calculator
         - Returns the total contributions of SSS, Pag-Ibig, and PhilHealth
     */
-    fun ContributionsCalc(salary:Double): Double {
-        return SSSCalc(salary) + PagIbigCalc(salary) + PhilHealthCalc(salary)
+    fun computeContribution(salary:Double): Double {
+        return computeSSS(salary) + computePagIbig(salary) + computePhilHealth(salary)
     }
 
     /*  Income Tax Calculator
         - Returns the total income tax respective to the taxable income
-    */ 
-    fun IncomeTaxCalc(salary:Double): Double {
-        var taxableIncome:Double = salary - ContributionsCalc(salary)
-        var incomeTax:Double = when {
+    */
+    fun computeIncomeTax(salary:Double): Double {
+        val taxableIncome:Double = salary - computeContribution(salary)
+        val incomeTax:Double = when {
             taxableIncome <= 20833 -> 0.0
             taxableIncome >= 20833 && taxableIncome < 33333 -> (taxableIncome - 20833) * 0.20
             taxableIncome >= 33333 && taxableIncome < 66667 -> (taxableIncome - 33333) * 0.25 + 2500
@@ -118,14 +115,14 @@ class CalculatorModel {
     /* Total Deductions Calculator
         - Returns the total deductions of contributions and income tax
     */
-    fun TotalDeductionsCalc(salary:Double): Double {
-        return ContributionsCalc(salary) + IncomeTaxCalc(salary)
+    fun computeTotalDeductions(salary:Double): Double {
+        return computeContribution(salary) + computeIncomeTax(salary)
     }
 
     /* Net Income Calculator
-        - Returns the net income after contributions 
+        - Returns the net income after contributions
     */
-    fun NetIncomeCalc(salary:Double): Double {
-        return salary - ContributionsCalc(salary) - IncomeTaxCalc(salary)
+    fun computeNetIncome(salary:Double): Double {
+        return salary - computeContribution(salary) - computeIncomeTax(salary)
     }
 }
