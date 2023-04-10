@@ -3,49 +3,49 @@ class CalculatorModel {
         - returns the respective SSS contribution based on the salary
     */
     fun computeSSS(salary:Double): Double {
-        val SSS: Double = when {
-            salary < 4250 -> 180.0
-            salary >= 4250 && salary <= 4749.99 -> 202.5
-            salary >= 4750 && salary <= 5249.99 -> 225.0
-            salary >= 5250 && salary <= 5749.99 -> 247.5
-            salary >= 5750 && salary <= 6249.99 -> 270.0
-            salary >= 6250 && salary <= 6749.99 -> 292.5
-            salary >= 6750 && salary <= 7249.99 -> 315.0
-            salary >= 7250 && salary <= 7749.99 -> 337.5
-            salary >= 7750 && salary <= 8249.99 -> 360.0
-            salary >= 8250 && salary <= 8749.99 -> 382.5
-            salary >= 8750 && salary <= 9249.99 -> 405.0
-            salary >= 9250 && salary <= 9749.99 -> 427.5
-            salary >= 9750 && salary <= 10249.99 -> 450.0
-            salary >= 10250 && salary <= 10749.99 -> 472.5
-            salary >= 10750 && salary <= 11249.99 -> 495.0
-            salary >= 11250 && salary <= 11749.99 -> 517.5
-            salary >= 11750 && salary <= 12249.99 -> 540.0
-            salary >= 12250 && salary <= 12749.99 -> 562.5
-            salary >= 12750 && salary <= 13249.99 -> 585.0
-            salary >= 13250 && salary <= 13749.99 -> 607.5
-            salary >= 13750 && salary <= 14249.99 -> 630.0
-            salary >= 14250 && salary <= 14749.99 -> 652.5
-            salary >= 14750 && salary <= 15249.99 -> 675.0
-            salary >= 15250 && salary <= 15749.99 -> 697.5
-            salary >= 15750 && salary <= 16249.99 -> 720.0
-            salary >= 16250 && salary <= 16749.99 -> 742.5
-            salary >= 16750 && salary <= 17249.99 -> 765.0
-            salary >= 17250 && salary <= 17749.99 -> 787.5
-            salary >= 17750 && salary <= 18249.99 -> 810.0
-            salary >= 18250 && salary <= 18749.99 -> 832.5
-            salary >= 18750 && salary <= 19249.99 -> 855.0
-            salary >= 19250 && salary <= 19749.99 -> 877.5
-            salary >= 19750 && salary <= 20249.99 -> 900.0
-            salary >= 20250 && salary <= 20749.99 -> 922.5
-            salary >= 20750 && salary <= 21249.99 -> 945.0
-            salary >= 21250 && salary <= 21749.99 -> 967.5
-            salary >= 21750 && salary <= 22249.99 -> 990.0
-            salary >= 22250 && salary <= 22749.99 -> 1012.5
-            salary >= 22270 && salary <= 23249.99 -> 1035.0
-            salary >= 23250 && salary <= 23749.99 -> 1057.5
-            salary >= 23750 && salary <= 24249.99 -> 1080.0
-            salary >= 24250 && salary <= 24279.99 -> 1102.5
+        val SSS: Double = when (salary){
+            in 0.0..4249.99 -> 180.0
+            in 4250.0..4749.99 -> 202.5
+            in 4750.0..5249.99 -> 225.0
+            in 5250.0..5749.99 -> 247.5
+            in 5750.0..6249.99 -> 270.0
+            in 6250.0..6749.99 -> 292.5
+            in 6750.0..7249.99 -> 315.0
+            in 7250.0..7749.99 -> 337.5
+            in 7750.0..8249.99 -> 360.0
+            in 8250.0..8749.99 -> 382.5
+            in 8750.0..9249.99 -> 405.0
+            in 9250.0..9749.99 -> 427.5
+            in 9750.0..10249.99 -> 450.0
+            in 10250.0..10749.99 -> 472.5
+            in 10750.0..11249.99 -> 495.0
+            in 11250.0..11749.99 -> 517.5
+            in 11750.0..12249.99 -> 540.0
+            in 12250.0..12749.99 -> 562.5
+            in 12750.0..13249.99 -> 585.0
+            in 13250.0..13749.99 -> 607.5
+            in 13750.0..14249.99 -> 630.0
+            in 14250.0..14749.99 -> 652.5
+            in 14750.0..15249.99 -> 675.0
+            in 15250.0..15749.99 -> 697.5
+            in 15750.0..16249.99 -> 720.0
+            in 16250.0..16749.99 -> 742.5
+            in 16750.0..17249.99 -> 765.0
+            in 17250.0..17749.99 -> 787.5
+            in 17750.0..18249.99 -> 810.0
+            in 18250.0..18749.99 -> 832.5
+            in 18750.0..19249.99 -> 855.0
+            in 19250.0..19749.99 -> 877.5
+            in 19750.0..20249.99 -> 900.0
+            in 20250.0..20749.99 -> 922.5
+            in 20750.0..21249.99 -> 945.0
+            in 21250.0..21749.99 -> 967.5
+            in 21750.0..22249.99 -> 990.0
+            in 22250.0..22749.99 -> 1012.5
+            in 22750.0..23249.99 -> 1035.0
+            in 23250.0..23749.99 -> 1057.5
+            in 23750.0..24249.99 -> 1080.0
+            in 24250.0..24749.99 -> 1102.5
             else -> 1125.0
         }
 
@@ -100,12 +100,12 @@ class CalculatorModel {
     */
     fun computeIncomeTax(salary:Double): Double {
         val taxableIncome:Double = salary - computeContribution(salary)
-        val incomeTax:Double = when {
-            taxableIncome <= 20833 -> 0.0
-            taxableIncome >= 20833 && taxableIncome < 33333 -> (taxableIncome - 20833) * 0.20
-            taxableIncome >= 33333 && taxableIncome < 66667 -> (taxableIncome - 33333) * 0.25 + 2500
-            taxableIncome >= 66667 && taxableIncome < 166667 -> (taxableIncome - 66667) * 0.30 + 10833.33
-            taxableIncome >= 166667 && taxableIncome < 666667 -> (taxableIncome - 166667) * 0.32 + 200833.33
+        val incomeTax:Double = when (taxableIncome){
+            in 0.0..20833.0 -> 0.0
+            in 20833.0..33332.99 -> (taxableIncome - 20833) * 0.20
+            in 33333.0..66666.99 -> (taxableIncome - 33333) * 0.25 + 2500
+            in 66667.0..166666.99 -> (taxableIncome - 66667) * 0.30 + 10833.33
+            in 166667.0..666666.99 -> (taxableIncome - 166667) * 0.32 + 200833.33
             else -> ((taxableIncome - 666667) * 0.35) + 200833.33
         }
 
