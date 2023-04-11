@@ -27,7 +27,7 @@ class CalculatorView : JFrame() {
 
     init {
         title = "Tax Calculator"
-        // defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+        defaultCloseOperation = JFrame.EXIT_ON_CLOSE
         setSize(1200, 780)
         isResizable = false
 
