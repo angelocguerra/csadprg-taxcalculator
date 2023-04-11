@@ -3,12 +3,14 @@ class CalculatorController(calculatorView: CalculatorView, calculatorModel: Calc
     init {
         // Add an event listener to the calculate button
         calculatorView.setCalculateBtnListener {
+            calculatorView.clearPieChart()
+
             // Get the salary from the text field
             val salary = calculatorView.getSalaryTF()
 
             // If the salary is not null, calculate the SSS, Pag-Ibig, and PhilHealth contributions
             val incomeTax = calculatorModel.computeIncomeTax(salary)
-            val netPayAfterTax = calculatorModel.computeNetIncome(salary)
+            val netPayAfterTax = salary - incomeTax
             val sss = calculatorModel.computeSSS(salary)
             val philHealth = calculatorModel.computePhilHealth(salary)
             val pagIbig = calculatorModel.computePagIbig(salary)
