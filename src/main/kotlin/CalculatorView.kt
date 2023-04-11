@@ -1,17 +1,16 @@
-import javax.swing.JTextField
-import javax.swing.JButton
-import javax.swing.JLabel
-import javax.swing.JFrame
-import javax.swing.ImageIcon
-
+import org.jfree.chart.ChartFactory
+import org.jfree.chart.ChartPanel
+import org.jfree.chart.JFreeChart
+import org.jfree.data.general.DefaultPieDataset
+import org.jfree.data.general.PieDataset
 import java.awt.Color
-import java.awt.FlowLayout
 import java.awt.Font
 import java.awt.event.ActionListener
+import javax.swing.*
 
 class CalculatorView : JFrame() {
 
-    private val backgroundLbl = JLabel(ImageIcon("/Users/angeloguerra/Downloads/csadprg/src/main/resources/Assets/taxcalc-background.png"))
+    private val backgroundLbl = JLabel(ImageIcon("src/main/resources/Assets/taxcalc-background.png"))
 
     private val salaryTF = JTextField()
     private val incomeTaxTF = JTextField()
@@ -22,20 +21,20 @@ class CalculatorView : JFrame() {
     private val totalContribTF = JTextField()
     private val totalDeduxTF = JTextField()
     private val netPayAfterDeduxTF = JTextField()
+    private var pieChartPanel = JPanel()
 
     private var calculateButton = JButton("CALCULATE")
 
     init {
         title = "Tax Calculator"
-        defaultCloseOperation = JFrame.EXIT_ON_CLOSE
+        // defaultCloseOperation = JFrame.EXIT_ON_CLOSE
         setSize(1200, 780)
         isResizable = false
-        layout = FlowLayout()
 
         // Background
         backgroundLbl.setBounds(0,0,1200,750)
-        add(backgroundLbl)
         backgroundLbl.layout = null
+        add(backgroundLbl)
 
         // Salary Text Field
         salaryTF.setBounds(470,15,370,77)
@@ -126,10 +125,48 @@ class CalculatorView : JFrame() {
         netPayAfterDeduxTF.horizontalAlignment = JTextField.CENTER
         backgroundLbl.add(netPayAfterDeduxTF)
 
-        // Pie Chart
-
-
         isVisible = true
+    }
+
+    // Display Pie Chart
+    fun displayPieChart() {
+        pieChartPanel = createDemoPanel()
+        pieChartPanel.layout = null
+        pieChartPanel.setBounds(623,225,555,410)
+        backgroundLbl.add(pieChartPanel)
+    }
+
+    // Create Dataset
+    fun createDataset(): PieDataset {
+        val dataset = DefaultPieDataset()
+        dataset.setValue("Income Tax (" + getPercentage(getIncomeTaxTF(), getSalaryTF()) + "%)", getIncomeTaxTF())
+        dataset.setValue("SSS (" + getPercentage(getSSSTF(), getSalaryTF()) + "%)", getSSSTF())
+        dataset.setValue("PhilHealth (" + getPercentage(getPhilHealthTF(), getSalaryTF()) + "%)", getPhilHealthTF())
+        dataset.setValue("Pag-Ibig (" + getPercentage(getPagIbigTF(), getSalaryTF()) + "%)", getPagIbigTF())
+        dataset.setValue("Net Pay After Deductions (" + getPercentage(getNetPayAfterDedux(), getSalaryTF()) + "%)", getNetPayAfterDedux())
+        return dataset
+    }
+
+    // Create Pie Chart
+    fun createChart(dataset: PieDataset): JFreeChart {
+        return ChartFactory.createPieChart(
+            "",  // chart title
+            dataset,  // data
+            true,  // include legend
+            true,
+            false
+        )
+    }
+
+    // Create Pie Chart JPanel
+    fun createDemoPanel(): JPanel {
+        val chart: JFreeChart = createChart(createDataset())
+        return ChartPanel(chart)
+    }
+
+    // Getter for Pie Chart Percentage
+    fun getPercentage(slice: Double, whole: Double) : String {
+        return String.format("%.2f", (slice / whole)*100)
     }
 
     // Setter for calculateButton
@@ -138,8 +175,13 @@ class CalculatorView : JFrame() {
     }
 
     // Getter for salaryTextField
-    fun getSalaryTF(): Double? {
-        return this.salaryTF.text.toDoubleOrNull()
+    fun getSalaryTF(): Double {
+        return this.salaryTF.text.toDouble()
+    }
+
+    // Getter for Income Tax Text Field
+    fun getIncomeTaxTF(): Double {
+        return this.incomeTaxTF.text.toDouble()
     }
 
     // Setter for Income Tax Text Field
@@ -152,14 +194,29 @@ class CalculatorView : JFrame() {
         this.netPayAfterTaxTF.text = netPayAfterTax
     }
 
+    // Getter for SSS Text Field
+    fun getSSSTF(): Double {
+        return this.sssTF.text.toDouble()
+    }
+
     // Setter for SSS Text Field
     fun setSSSTF(SSS: String) {
         this.sssTF.text = SSS
     }
 
+    // Getter for PhilHealth Text Field
+    fun getPhilHealthTF(): Double {
+        return this.philHealthTF.text.toDouble()
+    }
+
     // Setter for PhilHealth Text Field
     fun setPhilHealthTF(philHealth: String) {
         this.philHealthTF.text = philHealth
+    }
+
+    // Getter for Pag-Ibig Text Field
+    fun getPagIbigTF(): Double {
+        return this.pagIbigTF.text.toDouble()
     }
 
     // Setter for Pag-Ibig Text Field
@@ -175,6 +232,11 @@ class CalculatorView : JFrame() {
     // Setter for Total Deductions Text Field
     fun setTotalDeduxTF(totalDedux: String) {
         this.totalDeduxTF.text = totalDedux
+    }
+
+    // Getter for Net Pay After Deductions Text Field
+    fun getNetPayAfterDedux(): Double {
+        return this.netPayAfterDeduxTF.text.toDouble()
     }
 
     // Setter for Net Pay After Deductions Text Field
