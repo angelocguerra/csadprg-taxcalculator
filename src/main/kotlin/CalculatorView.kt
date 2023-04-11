@@ -169,6 +169,11 @@ class CalculatorView : JFrame() {
         return String.format("%.2f", (slice / whole)*100)
     }
 
+    // Clear Pie Chart
+    fun clearPieChart() {
+        backgroundLbl.remove(pieChartPanel)
+    }
+
     // Setter for calculateButton
     fun setCalculateBtnListener(actionListener: ActionListener) {
         this.calculateButton.addActionListener(actionListener)
